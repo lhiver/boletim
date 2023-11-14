@@ -1,7 +1,7 @@
 import 'dart:io';
 
 void main() {
-  media();
+  aprovacao();
 }
 
 String aluno() {
@@ -30,7 +30,7 @@ double inputNotas() {
   return nota;
 }
 
-void media() {
+double media() {
   String nome = aluno();
   int qtdNotas = 4;
   double nota = 0;
@@ -40,4 +40,19 @@ void media() {
   }
   double resultado = nota / qtdNotas;
   print('A média do aluno $nome é $resultado ');
+  return resultado;
+}
+
+aprovacao() {
+  switch (media()) {
+    case > 6:
+      print('Aprovado');
+      break;
+    case < 6 && >= 5:
+      print('Recuperação');
+      break;
+    case < 5:
+      print('Reprovado');
+      break;
+  }
 }
