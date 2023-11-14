@@ -4,7 +4,7 @@ void main() {
   aprovacao();
 }
 
-String aluno() {
+String getNomeAluno() {
   String nome;
   do {
     print('Digite o nome do Aluno: ');
@@ -13,11 +13,10 @@ String aluno() {
       print('Digite um nome valido:');
     }
   } while (nome.isEmpty);
-  print('O nome do aluno é $nome');
   return nome;
 }
 
-double inputNotas() {
+double getInputNota() {
   double nota;
   do {
     print('Digite uma nota: ');
@@ -30,29 +29,28 @@ double inputNotas() {
   return nota;
 }
 
-double media() {
-  String nome = aluno();
+double calcularMedia() {
+  String nome = getNomeAluno();
   int qtdNotas = 4;
   double nota = 0;
 
   for (int n = 0; n < qtdNotas; n++) {
-    nota += inputNotas();
+    nota += getInputNota();
   }
+
   double resultado = nota / qtdNotas;
   print('A média do aluno $nome é $resultado ');
   return resultado;
 }
 
 aprovacao() {
-  switch (media()) {
-    case > 6:
-      print('Aprovado');
-      break;
-    case < 6 && >= 5:
-      print('Recuperação');
-      break;
-    case < 5:
-      print('Reprovado');
-      break;
+  double mediaDoAluno = calcularMedia();
+
+  if (mediaDoAluno > 6) {
+    print('Aprovado');
+  } else if (mediaDoAluno >= 5 && mediaDoAluno < 6) {
+    print('Recuperação');
+  } else {
+    print('Reprovado');
   }
 }
