@@ -1,40 +1,43 @@
 import 'dart:io';
 
 void main() {
-  aluno();
+  media();
 }
 
-String receberNomeDoAluno(String nome) {
-  print(nome);
-  return stdin.readLineSync() ?? '';
+String aluno() {
+  String nome;
+  do {
+    print('Digite o nome do Aluno: ');
+    nome = stdin.readLineSync() ?? '';
+    if (nome.isEmpty) {
+      print('Digite um nome valido:');
+    }
+  } while (nome.isEmpty);
+  print('O nome do aluno é $nome');
+  return nome;
 }
 
-double inputDouble(String exibirValor) {
-  print(exibirValor);
-  String receberValor = stdin.readLineSync() ?? '';
-  return double.tryParse(receberValor) ?? 0.0;
+double inputNotas() {
+  double nota;
+  do {
+    print('Digite uma nota: ');
+    String input = stdin.readLineSync() ?? '';
+    nota = double.tryParse(input) ?? 0.0;
+    if (nota < 0 || nota > 10) {
+      print('Digite uma nota valida');
+    }
+  } while (nota < 0 || nota > 10);
+  return nota;
 }
 
-double notas() {
-  double somarValores = 0;
-  int qtdValores = 0;
-  for (double i = 0; i < 4; i++) {
-    double nota = inputDouble('Digite uma nota: ');
-    somarValores += nota;
-    qtdValores++;
+void media() {
+  String nome = aluno();
+  int qtdNotas = 4;
+  double nota = 0;
+
+  for (int n = 0; n < qtdNotas; n++) {
+    nota += inputNotas();
   }
-  return somarValores / qtdValores;
-}
-
-void aluno() {
-  String nome = receberNomeDoAluno('Digite o nome do aluno: ');
-  double media = notas();
-  print('$nome a sua media é $media');
-  if (media >= 6) {
-    print('$nome Você foi aprovado');
-  } else if (media > 5 && media < 6) {
-    print('$nome você está de recuperação');
-  } else {
-    print('$nome você foi reprovado');
-  }
+  double resultado = nota / qtdNotas;
+  print('A média do aluno $nome é $resultado ');
 }
